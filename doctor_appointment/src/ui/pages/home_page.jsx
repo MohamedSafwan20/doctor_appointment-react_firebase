@@ -1,14 +1,19 @@
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
+import { useEffect } from "react";
 import { IoMdLogOut } from "react-icons/io";
 import CookieService from "../../data/services/cookie_service";
 import useHomePageStore from "../../data/stores/home_page_store";
 
 function HomePage() {
-  const { appointments, columns, logout } = useHomePageStore();
+  const { appointments, columns, logout, init } = useHomePageStore();
 
   const currentUser = CookieService.getCookie("user");
+
+  useEffect(() => {
+    init();
+  }, [init]);
 
   return (
     <main className="bg-disabled min-h-screen flex justify-center py-12">
