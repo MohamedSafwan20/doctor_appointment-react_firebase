@@ -8,17 +8,27 @@ const usePrescriptionPageStore = create((set, get) => ({
   updateState: ({ state, value }) => {
     set({ [state]: value });
   },
-  upload: async (e) => {
-    e.preventDefault();
-
+  convertPrescriptionToPng: async ({ getPng }) => {
+    PrescriptionPageController.convertPrescriptionToPng({
+      prescription: get().prescription,
+      getPng,
+    });
+  },
+  convertToPdf: async ({ dataURL }) => {
     set({ isLoading: true });
 
-    await PrescriptionPageController.uploadPrescription({
-      appointmentId: get().appointment.id,
-      prescription: get().prescription,
+    const res = await PrescriptionPageController.convertToPdf({
+      dataURL,
+      appointment: get().appointment,
     });
 
     set({ isLoading: false });
+
+    if (!res.status) {
+      return;
+    }
+
+    window.history.back();
   },
 }));
 

@@ -1,7 +1,6 @@
 import { IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { IoMdLogOut } from "react-icons/io";
 import CookieService from "../../data/services/cookie_service";
 import useHomePageStore from "../../data/stores/home_page_store";
