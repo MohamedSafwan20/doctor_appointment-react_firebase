@@ -1,5 +1,6 @@
 import { signOut } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { ERROR_MSG } from "../../config/constants";
 import { auth, db } from "../../config/firebase";
 import CookieService from "../services/cookie_service";
@@ -31,7 +32,7 @@ export default class HomePageController {
 
       return { status: true };
     } catch (e) {
-      alert(ERROR_MSG);
+      toast.error(ERROR_MSG);
       return { status: false };
     }
   }

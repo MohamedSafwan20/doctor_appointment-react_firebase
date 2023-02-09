@@ -1,4 +1,5 @@
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { ERROR_MSG, SUCCESS_MSG } from "../../config/constants";
 import { db } from "../../config/firebase";
 import CookieService from "../services/cookie_service";
@@ -14,7 +15,7 @@ export default class AppointmentFormPageController {
 
       return { status: true, data: doctors };
     } catch (e) {
-      alert(ERROR_MSG);
+      toast.error(ERROR_MSG);
       return { status: false };
     }
   }
@@ -29,17 +30,17 @@ export default class AppointmentFormPageController {
   }) {
     try {
       if (fullName.length < 3) {
-        alert("Invalid Name");
+        toast.error("Invalid Name");
         return;
       }
 
       if (age.includes("-")) {
-        alert("Invalid Age");
+        toast.error("Invalid Age");
         return;
       }
 
       if (number.length > 0 && number.length !== 10) {
-        alert("Invalid Number");
+        toast.error("Invalid Number");
         return;
       }
 
@@ -68,11 +69,11 @@ export default class AppointmentFormPageController {
         payload
       );
 
-      alert(SUCCESS_MSG);
+      toast.success(SUCCESS_MSG);
 
       return { status: true };
     } catch (e) {
-      alert(ERROR_MSG);
+      toast.error(ERROR_MSG);
       return { status: false };
     }
   }

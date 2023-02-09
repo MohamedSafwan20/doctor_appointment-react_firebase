@@ -1,4 +1,5 @@
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { ERROR_MSG, SUCCESS_MSG } from "../../config/constants";
 import { db } from "../../config/firebase";
 import CookieService from "../services/cookie_service";
@@ -50,11 +51,11 @@ export default class AppointmentDetailsPageController {
       await deleteDoc(appointmentDoctorRef);
       await deleteDoc(appointmentPatientRef);
 
-      alert(SUCCESS_MSG);
+      toast.success(SUCCESS_MSG);
 
       return { status: true };
     } catch (e) {
-      alert(ERROR_MSG);
+      toast.error(ERROR_MSG);
       return { status: false };
     }
   }

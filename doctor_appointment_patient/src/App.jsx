@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   APPOINTMENT_DETAILS_PAGE_ROUTE,
@@ -15,6 +16,7 @@ import SignupPage from "./ui/pages/signup_page";
 function App() {
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <BrowserRouter>
         <Routes>
           <Route path={HOME_PAGE_ROUTE} element={<HomePage />} />

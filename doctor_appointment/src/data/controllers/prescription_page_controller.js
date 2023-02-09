@@ -1,6 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { ERROR_MSG, SUCCESS_MSG } from "../../config/constants";
+import toast from "react-hot-toast";
 
 export default class PrescriptionPageController {
   static async uploadPrescription({ appointmentId, prescription }) {
@@ -14,11 +15,11 @@ export default class PrescriptionPageController {
         payload
       );
 
-      alert(SUCCESS_MSG);
+      toast.success(SUCCESS_MSG);
 
       return { status: true };
     } catch (e) {
-      alert(ERROR_MSG);
+      toast.error(ERROR_MSG);
 
       return { status: false };
     }
