@@ -35,14 +35,7 @@ const useHomePageStore = create((set, get) => ({
       width: 250,
       renderCell: (params) => {
         return (
-          <Link
-            to={PRESCRIPTION_PAGE_ROUTE}
-            state={{
-              appointment: get().appointments.filter(
-                (item) => item.id === params.id
-              ),
-            }}
-          >
+          <>
             {params.row.completed ? (
               <Button
                 variant="contained"
@@ -54,11 +47,20 @@ const useHomePageStore = create((set, get) => ({
                 Uploaded
               </Button>
             ) : (
-              <Button variant="contained" size="small">
-                Enter Prescription
-              </Button>
+              <Link
+                to={PRESCRIPTION_PAGE_ROUTE}
+                state={{
+                  appointment: get().appointments.filter(
+                    (item) => item.id === params.id
+                  ),
+                }}
+              >
+                <Button variant="contained" size="small">
+                  Enter Prescription
+                </Button>
+              </Link>
             )}
-          </Link>
+          </>
         );
       },
     },

@@ -38,10 +38,10 @@ function PrescriptionPage() {
   }, [appointmentDate, location.state?.appointment]);
 
   return (
-    <main className="bg-disabled min-h-screen flex justify-center items-center">
-      <div className="rounded-xl bg-white w-[65%] flex justify-center items-center flex-col space-y-4 p-10">
+    <main className="bg-disabled min-h-screen flex justify-center items-center py-10">
+      <div className="rounded-xl bg-white lg:w-[75%] w-[90%] max-w-7xl flex justify-center items-center flex-col space-y-4 lg:p-10 px-6 py-8">
         <div className="w-[100%] space-y-4" ref={ref}>
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <img src={logo} alt="logo" className="w-[80px] h-[80px]" />
             <div>
               <h4 className="font-semibold">Dr. {currentUser?.displayName}</h4>
@@ -55,23 +55,23 @@ function PrescriptionPage() {
             </span>
           </p>
           <div>
-            <div className="flex items-end space-x-2">
+            <div className="flex md:items-end items-start md:flex-row flex-col space-x-2">
               <p className="text-sm text-primary">Name: </p>
-              <div className="w-[55%] text-center">
+              <div className="md:w-[55%] w-full text-center">
                 <p className="text-sm font-semibold">
                   {location.state?.appointment[0].fullName ?? ""}
                 </p>
                 <Divider color="black" />
               </div>
               <p className="text-sm text-primary">Age: </p>
-              <div className="w-[15%] text-center">
+              <div className="md:w-[15%] w-full text-center">
                 <p className="text-sm font-semibold">
                   {location.state?.appointment[0].age ?? ""}
                 </p>
                 <Divider color="black" />
               </div>
               <p className="text-sm text-primary">Date: </p>
-              <div className="w-[15%] text-center">
+              <div className="md:w-[15%] w-full text-center">
                 <p className="text-sm font-semibold">{appointmentDate}</p>
                 <Divider color="black" />
               </div>
