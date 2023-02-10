@@ -38,7 +38,6 @@ function HomePage() {
         </div>
         <div className="mt-8 w-full flex flex-col space-y-3 items-center">
           {appointments.map((appointment) => {
-            console.log(appointment.appointmentDate);
             return (
               <Card
                 style={{ width: "70%" }}
@@ -70,7 +69,9 @@ function HomePage() {
                           appointment: appointment,
                         }}
                       >
-                        View Appointment
+                        {appointment.completed
+                          ? "Completed"
+                          : "View Appointment"}
                       </Link>
                     </Button>
                   </div>

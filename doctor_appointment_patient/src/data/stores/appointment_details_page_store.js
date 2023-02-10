@@ -29,6 +29,15 @@ const useAppointmentDetailsPageStore = create((set, get) => ({
 
     window.location.replace(HOME_PAGE_ROUTE);
   },
+  downloadPrescription: async () => {
+    set({ isLoading: true });
+
+    await AppointmentDetailsPageController.downloadPrescription({
+      appointment: get().appointment,
+    });
+
+    set({ isLoading: false });
+  },
 }));
 
 export default useAppointmentDetailsPageStore;

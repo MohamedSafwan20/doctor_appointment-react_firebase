@@ -27,7 +27,6 @@ export default class PrescriptionPageController {
   static async convertToPdf({ dataURL, appointment }) {
     try {
       if (dataURL === null) {
-        toast.error(ERROR_MSG);
         return { status: false };
       }
 
@@ -85,6 +84,7 @@ export default class PrescriptionPageController {
       });
       await updateDoc(patientAppointmentDocRef, {
         prescriptionUrl,
+        completed: true,
       });
 
       return { status: true };

@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { IoIosDoneAll } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { create } from "zustand";
 import { LOGIN_PAGE_ROUTE, PRESCRIPTION_PAGE_ROUTE } from "../../config/routes";
@@ -42,12 +43,21 @@ const useHomePageStore = create((set, get) => ({
               ),
             }}
           >
-            <Button variant="contained" size="small">
-              Enter Prescription
-            </Button>
-            {/* <Button variant="contained" size="small" color="success" disabled startIcon={ <IoIosDoneAll />}>
-            Uploaded
-          </Button> */}
+            {params.row.completed ? (
+              <Button
+                variant="contained"
+                size="small"
+                color="success"
+                disabled
+                startIcon={<IoIosDoneAll />}
+              >
+                Uploaded
+              </Button>
+            ) : (
+              <Button variant="contained" size="small">
+                Enter Prescription
+              </Button>
+            )}
           </Link>
         );
       },

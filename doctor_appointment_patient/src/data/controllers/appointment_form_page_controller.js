@@ -31,17 +31,17 @@ export default class AppointmentFormPageController {
     try {
       if (fullName.length < 3) {
         toast.error("Invalid Name");
-        return;
+        return { status: false };
       }
 
       if (age.includes("-")) {
         toast.error("Invalid Age");
-        return;
+        return { status: false };
       }
 
       if (number.length > 0 && number.length !== 10) {
         toast.error("Invalid Number");
-        return;
+        return { status: false };
       }
 
       const appointmentSnapshot = await getDocs(

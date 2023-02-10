@@ -1,5 +1,12 @@
 import { signOut } from "firebase/auth";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import toast from "react-hot-toast";
 import { ERROR_MSG } from "../../config/constants";
 import { auth, db } from "../../config/firebase";
@@ -10,7 +17,10 @@ export default class HomePageController {
       const currentUser = CookieService.getCookie("user");
 
       const appointmentSnapshot = await getDocs(
-        collection(db, "patients", currentUser.email, "appointments")
+        query(
+          collection(db, "patients", currentUser.email, "appointments"),
+          orderBy("appointmentDate")
+        )
       );
 
       const appointments = await Promise.all(

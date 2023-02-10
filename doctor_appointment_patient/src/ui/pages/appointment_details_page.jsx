@@ -6,8 +6,13 @@ import useAppointmentDetailsPageStore from "../../data/stores/appointment_detail
 function AppointmentDetailsPage() {
   const location = useLocation();
 
-  const { init, completedAppointments, cancelAppointment, isLoading } =
-    useAppointmentDetailsPageStore();
+  const {
+    init,
+    completedAppointments,
+    cancelAppointment,
+    isLoading,
+    downloadPrescription,
+  } = useAppointmentDetailsPageStore();
 
   useEffect(() => {
     useAppointmentDetailsPageStore.setState({
@@ -39,17 +44,25 @@ function AppointmentDetailsPage() {
             </h3>
           </div>
           <div className="w-[280px] mx-auto text-center space-y-2">
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={cancelAppointment}
-              disabled={isLoading}
-            >
-              {isLoading ? "Cancelling.." : "Cancel"}
-            </Button>
-            {/* <Button variant="outlined" color="success">
-              Download Prescription
-            </Button> */}
+            {location.state?.appointment.completed ? (
+              <Button
+                variant="outlined"
+                color="success"
+                onClick={downloadPrescription}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading.." : "Download Prescription"}
+              </Button>
+            ) : (
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={cancelAppointment}
+                disabled={isLoading}
+              >
+                {isLoading ? "Cancelling.." : "Cancel"}
+              </Button>
+            )}
           </div>
         </div>
       </div>
