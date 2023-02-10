@@ -23,10 +23,10 @@ function AppointmentFormPage() {
   }, [init]);
 
   return (
-    <main className="bg-disabled min-h-screen flex justify-center items-center p-16">
-      <div className="rounded-xl bg-white w-[60%] flex justify-center items-center flex-col space-y-4 p-16">
+    <main className="bg-disabled min-h-screen flex justify-center items-center lg:p-16 px-2 py-8">
+      <div className="rounded-xl bg-white md:w-[60%] w-[90%] max-w-7xl flex justify-center items-center flex-col space-y-4 lg:p-16 px-6 py-8">
         <form className="w-[100%] space-y-4" onSubmit={handleAppointmentSubmit}>
-          <h1 className="font-[500] text-primary text-3xl text-center mb-5">
+          <h1 className="font-[500] text-primary lg:text-3xl text-xl text-center mb-5">
             Appointment Form
           </h1>
           <div className="space-y-1 flex flex-col">

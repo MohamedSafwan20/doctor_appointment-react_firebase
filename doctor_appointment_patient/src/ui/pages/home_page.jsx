@@ -18,15 +18,15 @@ function HomePage() {
   }, [init]);
 
   return (
-    <main className="bg-disabled min-h-screen flex justify-center p-16">
-      <div className="rounded-xl bg-white w-[80%] flex items-center flex-col p-16 min-h-[50vh] relative">
+    <main className="bg-disabled min-h-screen flex justify-center lg:p-16 px-2 py-8">
+      <div className="rounded-xl bg-white md:w-[60%] w-[90%] max-w-7xl flex items-center flex-col lg:p-16 px-6 py-8 min-h-[50vh] relative">
         <div className="absolute right-5 top-2">
           <IconButton color="primary" component="label" onClick={logout}>
             <IoMdLogOut />
           </IconButton>
         </div>
         <div className="text-center">
-          <p className="text-secondary text-[0.82em]">
+          <p className="text-secondary text-[0.82em] md:mt-0 mt-8">
             Press the below button to book an
             <br /> appointment with doctor
           </p>
@@ -40,24 +40,26 @@ function HomePage() {
           {appointments.map((appointment) => {
             return (
               <Card
-                style={{ width: "70%" }}
+                className="md:w-[70%] w-full"
                 variant="outlined"
                 key={appointment.id}
               >
                 <CardContent className="space-y-4">
-                  <h3 className="text-xl font-semibold text-center">
+                  <h3 className="md:text-xl text-lg font-semibold text-center">
                     Dr. {appointment.doctor?.name}
                   </h3>
                   <div>
                     <div className="flex justify-between items-center">
-                      <p className="text-secondary text-sm">
+                      <p className="text-secondary md:text-sm text-xs flex flex-col">
                         Date:{" "}
-                        {dayjs(appointment.appointmentDate.toDate()).format(
-                          "DD-MMM-YYYY"
-                        )}
+                        <span>
+                          {dayjs(appointment.appointmentDate.toDate()).format(
+                            "DD-MMM-YYYY"
+                          )}
+                        </span>
                       </p>
-                      <p className="text-secondary text-sm">
-                        Token No: {appointment.tokenNumber}
+                      <p className="text-secondary md:text-sm text-xs flex flex-col items-end">
+                        Token No: <span>{appointment.tokenNumber}</span>
                       </p>
                     </div>
                   </div>

@@ -25,10 +25,10 @@ function AppointmentDetailsPage() {
   }, [init]);
 
   return (
-    <main className="bg-disabled min-h-screen flex justify-center items-center p-16">
-      <div className="rounded-xl bg-white w-[60%] flex justify-center items-center flex-col space-y-4 p-16">
+    <main className="bg-disabled min-h-screen flex justify-center items-center lg:p-16 p-2">
+      <div className="rounded-xl bg-white md:w-[60%] w-[90%] max-w-7xl flex justify-center items-center flex-col space-y-4 lg:p-16 p-6">
         <div className="w-[100%] space-y-6">
-          <h1 className="font-[500] text-primary text-3xl text-center mb-10">
+          <h1 className="font-[500] text-primary lg:text-3xl text-xl text-center mb-10">
             Appointment Details
           </h1>
           <div className="text-center">
@@ -43,7 +43,7 @@ function AppointmentDetailsPage() {
               {completedAppointments}
             </h3>
           </div>
-          <div className="w-[280px] mx-auto text-center space-y-2">
+          <div className="mx-auto text-center space-y-2">
             {location.state?.appointment.completed ? (
               <Button
                 variant="outlined"

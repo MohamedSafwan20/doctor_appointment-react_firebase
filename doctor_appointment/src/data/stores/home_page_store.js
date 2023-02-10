@@ -69,8 +69,6 @@ const useHomePageStore = create((set, get) => ({
   fetchAppointments: async () => {
     const res = await HomePageController.fetchAppointments();
 
-    console.log({ res });
-
     if (res.status) {
       set({ appointments: res.data });
     }
