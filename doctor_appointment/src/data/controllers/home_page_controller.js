@@ -13,10 +13,13 @@ export default class HomePageController {
         collection(db, "doctors", currentUser.email, "appointments")
       );
 
-      const appointments = appointmentSnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+      const appointments = appointmentSnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          appointmentDate: doc.get("appointmentDate").toDate(),
+          id: doc.id,
+        };
+      });
 
       return { status: true, data: appointments };
     } catch (e) {
@@ -33,6 +36,18 @@ export default class HomePageController {
       return { status: true };
     } catch (e) {
       toast.error(ERROR_MSG);
+      return { status: false };
+    }
+  }
+
+  static filterAppointments({ date, appointments }) {
+    try {
+      const data = appointments.filter((item) => {
+        return item.appointmentDate.toDateString() === date.toDateString();
+      });
+
+      return { status: true, data };
+    } catch (e) {
       return { status: false };
     }
   }

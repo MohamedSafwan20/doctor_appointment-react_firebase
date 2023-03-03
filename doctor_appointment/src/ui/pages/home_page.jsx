@@ -1,12 +1,15 @@
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React, { useEffect } from "react";
 import { IoMdLogOut } from "react-icons/io";
 import CookieService from "../../data/services/cookie_service";
 import useHomePageStore from "../../data/stores/home_page_store";
 
 function HomePage() {
-  const { appointments, columns, logout, init } = useHomePageStore();
+  const { appointments, columns, logout, init, updateState, date } =
+    useHomePageStore();
 
   const currentUser = CookieService.getCookie("user");
 
@@ -18,9 +21,24 @@ function HomePage() {
     <main className="bg-disabled min-h-screen flex justify-center py-12">
       <div className="rounded-xl bg-white w-[90%] max-w-7xl flex flex-col lg:p-16 px-6 py-8 min-h-[50vh] space-y-4">
         <div className="flex justify-between items-center">
-          <div>
+          <div className="flex items-center gap-2">
             <h4 className="font-semibold">Dr. {currentUser?.displayName}</h4>
-            <p className="text-secondary text-sm"></p>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                shouldDisableDate={(value) => {
+                  const date = new Date(value);
+                  return date.getDay() === 0 || date.getDay() === 6;
+                }}
+                required
+                disablePast
+                inputFormat="DD-MM-YYYY"
+                value={date}
+                onChange={(value) => {
+                  updateState({ state: "date", value });
+                }}
+                renderInput={(params) => <TextField {...params} size="small" />}
+              />
+            </LocalizationProvider>
           </div>
           <IconButton color="primary" component="label" onClick={logout}>
             <IoMdLogOut />

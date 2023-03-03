@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import dayjs from "dayjs";
 import { IoIosDoneAll } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { create } from "zustand";
@@ -7,8 +8,20 @@ import HomePageController from "../controllers/home_page_controller";
 
 const useHomePageStore = create((set, get) => ({
   appointments: [],
+  cpyAppointments: [],
+  date: dayjs(new Date()),
   columns: [
     { field: "tokenNumber", headerName: "Token Number", width: 150 },
+    {
+      field: "appointmentDate",
+      headerName: "Appointment Date",
+      width: 150,
+      renderCell: (params) => {
+        const appointmentDate = dayjs(params.value).format("DD-MMM-YYYY");
+
+        return <span>{appointmentDate}</span>;
+      },
+    },
     {
       field: "fullName",
       headerName: "Name",
@@ -65,6 +78,13 @@ const useHomePageStore = create((set, get) => ({
       },
     },
   ],
+  updateState: ({ state, value }) => {
+    set({ [state]: value });
+
+    if (state === "date") {
+      get().filterAppointments({ date: new Date(value) });
+    }
+  },
   init: () => {
     get().fetchAppointments();
   },
@@ -72,7 +92,8 @@ const useHomePageStore = create((set, get) => ({
     const res = await HomePageController.fetchAppointments();
 
     if (res.status) {
-      set({ appointments: res.data });
+      set({ cpyAppointments: res.data });
+      get().filterAppointments({ date: new Date() });
     }
   },
   logout: async () => {
@@ -83,6 +104,18 @@ const useHomePageStore = create((set, get) => ({
     }
 
     window.location = LOGIN_PAGE_ROUTE;
+  },
+  filterAppointments: ({ date }) => {
+    const res = HomePageController.filterAppointments({
+      date,
+      appointments: get().cpyAppointments,
+    });
+
+    if (!res.status) {
+      return;
+    }
+
+    set({ appointments: res.data });
   },
 }));
 

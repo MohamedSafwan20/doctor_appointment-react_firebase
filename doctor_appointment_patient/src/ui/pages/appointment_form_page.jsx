@@ -110,6 +110,10 @@ function AppointmentFormPage() {
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
+              shouldDisableDate={(value) => {
+                const date = new Date(value)
+                return date.getDay() === 0 || date.getDay() === 6;
+              }}
                 required
                 disablePast
                 inputFormat="DD-MM-YYYY"
