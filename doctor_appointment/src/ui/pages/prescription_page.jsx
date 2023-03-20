@@ -17,7 +17,7 @@ function PrescriptionPage() {
     usePrescriptionPageStore();
 
   const appointmentDate = dayjs(
-    new Date(location.state?.appointment[0].appointmentDate.seconds * 1000)
+   location.state?.appointment[0].appointmentDate
   ).format("DD-MMM-YYYY");
 
   const {
@@ -99,7 +99,9 @@ function PrescriptionPage() {
             variant="contained"
             size="small"
             disabled={isLoading || isImageConversionLoading}
-            onClick={() => convertPrescriptionToPng({ getPng })}
+            onClick={() => {
+              convertPrescriptionToPng({ getPng })
+            }}
           >
             {isLoading || isImageConversionLoading ? "Uploading.." : "Upload"}
           </Button>

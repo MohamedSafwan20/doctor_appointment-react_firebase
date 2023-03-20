@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, uploadString } from "firebase/storage";
 import jsPDF from "jspdf";
 import toast from "react-hot-toast";
 import { ERROR_MSG, SUCCESS_MSG } from "../../config/constants";
@@ -36,7 +36,7 @@ export default class PrescriptionPageController {
       doc.addImage(dataURL, "PNG", 15, 40, 180, 180);
 
       const res = await this._uploadToStorage({
-        file: doc.output("dataurl"),
+        file: doc.output("blob"),
         filename: `Dr. ${currentUser.displayName}'s Prescription - ${appointment.appointmentDate}`,
         appointment,
       });
@@ -61,7 +61,7 @@ export default class PrescriptionPageController {
 
       const prescriptionsRef = ref(storage, `prescriptions/${filename}.pdf`);
 
-      const res = await uploadString(prescriptionsRef, file, "data_url");
+      const res = await uploadBytes(prescriptionsRef, file);
       const prescriptionUrl = await getDownloadURL(res.ref);
 
       const doctorAppointmentDocRef = doc(
