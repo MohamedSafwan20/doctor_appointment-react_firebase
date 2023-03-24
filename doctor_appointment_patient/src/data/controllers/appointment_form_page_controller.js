@@ -20,30 +20,8 @@ export default class AppointmentFormPageController {
     }
   }
 
-  static async handleAppointmentSubmit({
-    date,
-    fullName,
-    age,
-    number,
-    doctor,
-    fee,
-  }) {
+  static async submitAppointment({ date, fullName, age, number, doctor, fee }) {
     try {
-      if (fullName.length < 3) {
-        toast.error("Invalid Name");
-        return { status: false };
-      }
-
-      if (age.includes("-")) {
-        toast.error("Invalid Age");
-        return { status: false };
-      }
-
-      if (number.length > 0 && number.length !== 10) {
-        toast.error("Invalid Number");
-        return { status: false };
-      }
-
       const appointmentSnapshot = await getDocs(
         collection(db, "doctors", doctor, "appointments")
       );

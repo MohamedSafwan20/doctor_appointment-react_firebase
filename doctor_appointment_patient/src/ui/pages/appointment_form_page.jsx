@@ -1,8 +1,9 @@
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import { Button, Dialog, MenuItem, Select, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React, { useEffect } from "react";
+import { BsCreditCardFill } from "react-icons/bs";
 import useAppointmentFormPageStore from "../../data/stores/appointment_form_page_store";
 
 function AppointmentFormPage() {
@@ -16,6 +17,9 @@ function AppointmentFormPage() {
     init,
     handleAppointmentSubmit,
     updateState,
+    isModalOpen,
+    submitAppointment,
+    closeModal,
   } = useAppointmentFormPageStore();
 
   useEffect(() => {
@@ -110,10 +114,10 @@ function AppointmentFormPage() {
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
-              shouldDisableDate={(value) => {
-                const date = new Date(value)
-                return date.getDay() === 0 || date.getDay() === 6;
-              }}
+                shouldDisableDate={(value) => {
+                  const date = new Date(value);
+                  return date.getDay() === 0 || date.getDay() === 6;
+                }}
                 required
                 disablePast
                 inputFormat="DD-MM-YYYY"
@@ -143,10 +147,87 @@ function AppointmentFormPage() {
             />
           </div>
           <Button variant="contained" className="w-full" type="submit">
-            Pay
+            Submit
           </Button>
         </form>
       </div>
+
+      <Dialog onClose={closeModal} open={isModalOpen}>
+        <div className="bg-disabled py-2 px-4 flex justify-between items-center">
+          <h3 className="font-bold text-xl">Enter payment details</h3>
+          <BsCreditCardFill />
+        </div>
+        <form className="p-4 w-[40vw]" onSubmit={submitAppointment}>
+          <div className="space-y-1 flex flex-col">
+            <label
+              htmlFor="cardNumber"
+              className="text-sm font-semibold text-secondary"
+            >
+              CARD NUMBER
+            </label>
+            <TextField
+              placeholder="1234432112344321"
+              required
+              id="cardNumber"
+              variant="outlined"
+              size="small"
+              type={"number"}
+            />
+          </div>
+          <div className="flex justify-between items-center mt-6">
+            <div className="space-y-1 flex flex-col w-[15%]">
+              <label
+                htmlFor="cvCode"
+                className="text-sm font-semibold text-secondary"
+              >
+                CV CODE
+              </label>
+              <TextField
+                placeholder="420"
+                required
+                id="cvCode"
+                variant="outlined"
+                size="small"
+                type={"number"}
+              />
+            </div>
+            <div className="flex justify-center items-end w-[41%] gap-2">
+              <div className="space-y-1 flex flex-col">
+                <label
+                  htmlFor="expiryDate"
+                  className="text-sm font-semibold text-secondary"
+                >
+                  EXPIRY DATE
+                </label>
+                <TextField
+                  placeholder="10"
+                  required
+                  id="expiryDate"
+                  variant="outlined"
+                  size="small"
+                  type={"number"}
+                />
+              </div>
+              <div className="space-y-1 flex flex-col">
+                <TextField
+                  placeholder="12"
+                  required
+                  id="expiryDate"
+                  variant="outlined"
+                  size="small"
+                  type={"number"}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <Button variant="contained" className="w-full" type="submit">
+              Pay
+            </Button>
+          </div>
+        </form>
+      </Dialog>
     </main>
   );
 }
