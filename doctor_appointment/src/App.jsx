@@ -5,11 +5,13 @@ import {
   LOGIN_PAGE_ROUTE,
   PRESCRIPTION_PAGE_ROUTE,
   SIGNUP_PAGE_ROUTE,
+  PROFILE_PAGE_ROUTE,
 } from "./config/routes";
 import HomePage from "./ui/pages/home_page";
 import LoginPage from "./ui/pages/login_page";
 import PrescriptionPage from "./ui/pages/prescription_page";
 import SignupPage from "./ui/pages/signup_page";
+import ProfilePage from "./ui/pages/profile_page";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
             path={PRESCRIPTION_PAGE_ROUTE}
             element={<PrescriptionPage />}
           />
+          <Route path={PROFILE_PAGE_ROUTE} element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </>

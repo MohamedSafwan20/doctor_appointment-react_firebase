@@ -3,7 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React, { useEffect } from "react";
+import { BiUser } from "react-icons/bi";
 import { IoMdLogOut } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { PROFILE_PAGE_ROUTE } from "../../config/routes";
 import CookieService from "../../data/services/cookie_service";
 import useHomePageStore from "../../data/stores/home_page_store";
 
@@ -12,6 +15,8 @@ function HomePage() {
     useHomePageStore();
 
   const currentUser = CookieService.getCookie("user");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     init();
@@ -51,11 +56,24 @@ function HomePage() {
               />
             </LocalizationProvider>
           </div>
-          <Tooltip title="logout">
-            <IconButton color="primary" component="label" onClick={logout}>
-              <IoMdLogOut />
-            </IconButton>
-          </Tooltip>
+          <div className="space-x-2">
+            <Tooltip title="profile">
+              <IconButton
+                color="primary"
+                component="label"
+                onClick={() => {
+                  navigate(PROFILE_PAGE_ROUTE);
+                }}
+              >
+                <BiUser />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="logout">
+              <IconButton color="primary" component="label" onClick={logout}>
+                <IoMdLogOut />
+              </IconButton>
+            </Tooltip>
+          </div>
         </div>
         <DataGrid
           rows={appointments}
