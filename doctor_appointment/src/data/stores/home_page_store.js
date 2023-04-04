@@ -10,6 +10,7 @@ const useHomePageStore = create((set, get) => ({
   appointments: [],
   cpyAppointments: [],
   date: dayjs(new Date()),
+  doctor: {},
   columns: [
     { field: "tokenNumber", headerName: "Token Number", width: 150 },
     {
@@ -86,6 +87,7 @@ const useHomePageStore = create((set, get) => ({
     }
   },
   init: () => {
+    get().fetchDoctor();
     get().fetchAppointments();
   },
   fetchAppointments: async () => {
@@ -116,6 +118,15 @@ const useHomePageStore = create((set, get) => ({
     }
 
     set({ appointments: res.data });
+  },
+  fetchDoctor: async () => {
+    const res = await HomePageController.fetchDoctor();
+
+    if (!res.status) {
+      return;
+    }
+
+    set({ doctor: res.data });
   },
 }));
 

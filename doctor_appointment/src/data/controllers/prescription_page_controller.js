@@ -1,5 +1,5 @@
-import { doc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, uploadString } from "firebase/storage";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import jsPDF from "jspdf";
 import toast from "react-hot-toast";
 import { ERROR_MSG, SUCCESS_MSG } from "../../config/constants";
@@ -90,6 +90,18 @@ export default class PrescriptionPageController {
       return { status: true };
     } catch (e) {
       toast.error(ERROR_MSG);
+      return { status: false };
+    }
+  }
+
+  static async fetchDoctor() {
+    try {
+      const currentUser = CookieService.getCookie("user");
+
+      const doctorDoc = await getDoc(doc(db, "doctors", currentUser.email));
+
+      return { status: true, data: doctorDoc.data() };
+    } catch (e) {
       return { status: false };
     }
   }

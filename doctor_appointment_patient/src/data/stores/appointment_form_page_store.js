@@ -11,6 +11,8 @@ const useAppointmentFormPageStore = create((set, get) => ({
   number: "",
   doctor: "",
   fee: "",
+  hospitalName: "",
+  qualifications: "",
   doctors: [],
   isModalOpen: false,
   init: () => {

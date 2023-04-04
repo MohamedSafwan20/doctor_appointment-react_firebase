@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { ERROR_MSG } from "../../config/constants";
 import { auth, db } from "../../config/firebase";
@@ -47,6 +47,18 @@ export default class HomePageController {
       });
 
       return { status: true, data };
+    } catch (e) {
+      return { status: false };
+    }
+  }
+
+  static async fetchDoctor() {
+    try {
+      const currentUser = CookieService.getCookie("user");
+
+      const doctorDoc = await getDoc(doc(db, "doctors", currentUser.email));
+
+      return { status: true, data: doctorDoc.data() };
     } catch (e) {
       return { status: false };
     }

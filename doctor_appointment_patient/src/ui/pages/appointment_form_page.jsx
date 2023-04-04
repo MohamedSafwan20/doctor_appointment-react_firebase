@@ -13,6 +13,8 @@ function AppointmentFormPage() {
     number,
     doctor,
     fee,
+    qualifications,
+    hospitalName,
     doctors,
     init,
     handleAppointmentSubmit,
@@ -97,17 +99,86 @@ function AppointmentFormPage() {
                   (item) => item.id === e.target.value
                 );
                 updateState({ state: "fee", value: doctor[0].fees });
+                updateState({
+                  state: "hospitalName",
+                  value: doctor[0].hospitalName,
+                });
+                updateState({
+                  state: "qualifications",
+                  value: doctor[0].qualifications,
+                });
               }}
             >
               {doctors.map((doctor) => {
                 return (
                   <MenuItem value={doctor.id} key={doctor.id}>
-                    {doctor.name + ", " + doctor.department}
+                    {doctor.name}
                   </MenuItem>
                 );
               })}
             </Select>
           </div>
+          {doctor !== "" && (
+            <>
+              <div className="space-y-1 flex flex-col">
+                <label htmlFor="hospitalName" className="text-sm font-semibold">
+                  Hospital Name
+                </label>
+                <TextField
+                  required
+                  disabled
+                  id="hospitalName"
+                  variant="outlined"
+                  size="small"
+                  value={hospitalName}
+                  onChange={(e) =>
+                    updateState({
+                      state: "hospitalName",
+                      value: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="space-y-1 flex flex-col">
+                <label
+                  htmlFor="qualifications"
+                  className="text-sm font-semibold"
+                >
+                  Qualifications
+                </label>
+                <TextField
+                  required
+                  disabled
+                  id="qualifications"
+                  variant="outlined"
+                  size="small"
+                  value={qualifications}
+                  onChange={(e) =>
+                    updateState({
+                      state: "qualifications",
+                      value: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="space-y-1 flex flex-col">
+                <label htmlFor="doctorfee" className="text-sm font-semibold">
+                  Doctor Fee
+                </label>
+                <TextField
+                  required
+                  disabled
+                  id="doctorfee"
+                  variant="outlined"
+                  size="small"
+                  value={fee}
+                  onChange={(e) =>
+                    updateState({ state: "fee", value: e.target.value })
+                  }
+                />
+              </div>
+            </>
+          )}
           <div className="space-y-1 flex flex-col">
             <label htmlFor="appointmentDate" className="text-sm font-semibold">
               Appointment Date
@@ -130,22 +201,6 @@ function AppointmentFormPage() {
             </LocalizationProvider>
           </div>
 
-          <div className="space-y-1 flex flex-col">
-            <label htmlFor="doctorfee" className="text-sm font-semibold">
-              Doctor Fee
-            </label>
-            <TextField
-              required
-              disabled
-              id="doctorfee"
-              variant="outlined"
-              size="small"
-              value={fee}
-              onChange={(e) =>
-                updateState({ state: "fee", value: e.target.value })
-              }
-            />
-          </div>
           <Button variant="contained" className="w-full" type="submit">
             Submit
           </Button>

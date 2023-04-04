@@ -7,8 +7,10 @@ const useSignupPageStore = create((set, get) => ({
   email: "",
   password: "",
   confirmPassword: "",
+  hospitalName: "",
   department: "",
   fees: "",
+  qualifications: "",
   isLoading: false,
   updateState: ({ state, value }) => {
     set({ [state]: value });
@@ -24,6 +26,8 @@ const useSignupPageStore = create((set, get) => ({
       name: get().name,
       department: get().department,
       fees: get().fees,
+      hospitalName: get().hospitalName,
+      qualifications: get().qualifications,
       confirmPassword: get().confirmPassword,
     });
 

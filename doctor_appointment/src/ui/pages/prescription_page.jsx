@@ -13,11 +13,17 @@ function PrescriptionPage() {
 
   const currentUser = CookieService.getCookie("user");
 
-  const { updateState, isLoading, convertPrescriptionToPng, convertToPdf } =
-    usePrescriptionPageStore();
+  const {
+    updateState,
+    isLoading,
+    convertPrescriptionToPng,
+    convertToPdf,
+    doctor,
+    init,
+  } = usePrescriptionPageStore();
 
   const appointmentDate = dayjs(
-   location.state?.appointment[0].appointmentDate
+    location.state?.appointment[0].appointmentDate
   ).format("DD-MMM-YYYY");
 
   const {
@@ -37,6 +43,10 @@ function PrescriptionPage() {
     });
   }, [appointmentDate, location.state?.appointment]);
 
+  useEffect(() => {
+    init();
+  }, [init]);
+
   return (
     <main className="bg-disabled min-h-screen flex justify-center items-center py-10">
       <div className="rounded-xl bg-white lg:w-[75%] w-[90%] max-w-7xl flex justify-center items-center flex-col space-y-4 lg:p-10 px-6 py-8">
@@ -45,6 +55,15 @@ function PrescriptionPage() {
             <img src={logo} alt="logo" className="w-[80px] h-[80px]" />
             <div>
               <h4 className="font-semibold">Dr. {currentUser?.displayName}</h4>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.hospitalName}
+              </p>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.department}
+              </p>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.qualifications}
+              </p>
             </div>
           </div>
           <Divider color={PRIMARY_COLOR} />
@@ -100,7 +119,7 @@ function PrescriptionPage() {
             size="small"
             disabled={isLoading || isImageConversionLoading}
             onClick={() => {
-              convertPrescriptionToPng({ getPng })
+              convertPrescriptionToPng({ getPng });
             }}
           >
             {isLoading || isImageConversionLoading ? "Uploading.." : "Upload"}

@@ -8,7 +8,7 @@ import CookieService from "../../data/services/cookie_service";
 import useHomePageStore from "../../data/stores/home_page_store";
 
 function HomePage() {
-  const { appointments, columns, logout, init, updateState, date } =
+  const { appointments, columns, logout, init, updateState, date, doctor } =
     useHomePageStore();
 
   const currentUser = CookieService.getCookie("user");
@@ -21,8 +21,19 @@ function HomePage() {
     <main className="bg-disabled min-h-screen flex justify-center py-12">
       <div className="rounded-xl bg-white w-[90%] max-w-7xl flex flex-col lg:p-16 px-6 py-8 min-h-[50vh] space-y-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <h4 className="font-semibold">Dr. {currentUser?.displayName}</h4>
+          <div className="flex items-center gap-4">
+            <div>
+              <h4 className="font-semibold">Dr. {currentUser?.displayName}</h4>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.hospitalName}
+              </p>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.department}
+              </p>
+              <p className="font-semibold text-xs text-secondary">
+                {doctor.qualifications}
+              </p>
+            </div>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 shouldDisableDate={(value) => {

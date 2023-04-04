@@ -5,6 +5,10 @@ const usePrescriptionPageStore = create((set, get) => ({
   prescription: "",
   isLoading: false,
   appointment: {},
+  doctor: {},
+  init: () => {
+    get().fetchDoctor();
+  },
   updateState: ({ state, value }) => {
     set({ [state]: value });
   },
@@ -29,6 +33,15 @@ const usePrescriptionPageStore = create((set, get) => ({
     }
 
     window.history.back();
+  },
+  fetchDoctor: async () => {
+    const res = await PrescriptionPageController.fetchDoctor();
+
+    if (!res.status) {
+      return;
+    }
+
+    set({ doctor: res.data });
   },
 }));
 

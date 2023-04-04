@@ -46,6 +46,20 @@ function SignupPage() {
             />
           </div>
           <div className="space-y-1 flex flex-col">
+            <label htmlFor="hospitalName" className="text-sm font-semibold">
+              Hospital Name
+            </label>
+            <TextField
+              required
+              id="hospitalName"
+              variant="outlined"
+              size="small"
+              onChange={(e) => {
+                updateState({ state: "hospitalName", value: e.target.value });
+              }}
+            />
+          </div>
+          <div className="space-y-1 flex flex-col">
             <label htmlFor="department" className="text-sm font-semibold">
               Department
             </label>
@@ -56,6 +70,20 @@ function SignupPage() {
               size="small"
               onChange={(e) => {
                 updateState({ state: "department", value: e.target.value });
+              }}
+            />
+          </div>
+          <div className="space-y-1 flex flex-col">
+            <label htmlFor="qualifications" className="text-sm font-semibold">
+              Qualifications
+            </label>
+            <TextField
+              required
+              id="qualifications"
+              variant="outlined"
+              size="small"
+              onChange={(e) => {
+                updateState({ state: "qualifications", value: e.target.value });
               }}
             />
           </div>

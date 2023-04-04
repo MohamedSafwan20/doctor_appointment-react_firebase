@@ -12,6 +12,8 @@ export default class SignupPageController {
     name,
     department,
     fees,
+    hospitalName,
+    qualifications,
     confirmPassword,
   }) {
     try {
@@ -22,6 +24,16 @@ export default class SignupPageController {
 
       if (department.length < 3) {
         toast.error("Invalid Department");
+        return { status: false };
+      }
+
+      if (hospitalName.length < 3) {
+        toast.error("Invalid Hospital Name");
+        return { status: false };
+      }
+
+      if (qualifications === "") {
+        toast.error("Invalid Qualifications");
         return { status: false };
       }
 
@@ -47,6 +59,8 @@ export default class SignupPageController {
         password,
         department,
         fees,
+        hospitalName,
+        qualifications,
         name,
       });
 
