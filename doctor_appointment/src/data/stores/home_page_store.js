@@ -95,7 +95,7 @@ const useHomePageStore = create((set, get) => ({
 
     if (res.status) {
       set({ cpyAppointments: res.data });
-      get().filterAppointments({ date: new Date() });
+      get().filterAppointments({ date: get().date });
     }
   },
   logout: async () => {
