@@ -1,12 +1,20 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { ERROR_MSG } from "../../config/constants";
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import CookieService from "../services/cookie_service";
 export default class LoginPageController {
   static async login({ email, password }) {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
+
+      const patientDoc = await getDoc(doc(db, "patients", email));
+
+      if (patientDoc.get("email") === undefined) {
+        toast.error("Account not found");
+        return { status: false };
+      }
 
       CookieService.setCookie({ name: "user", value: res.user });
 

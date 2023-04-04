@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, IconButton } from "@mui/material";
+import { Button, Card, CardContent, IconButton, Tooltip } from "@mui/material";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { IoMdLogOut } from "react-icons/io";
@@ -21,9 +21,11 @@ function HomePage() {
     <main className="bg-disabled min-h-screen flex justify-center lg:p-16 px-2 py-8">
       <div className="rounded-xl bg-white md:w-[60%] w-[90%] max-w-7xl flex items-center flex-col lg:p-16 px-6 py-8 min-h-[50vh] relative">
         <div className="absolute right-5 top-2">
-          <IconButton color="primary" component="label" onClick={logout}>
-            <IoMdLogOut />
-          </IconButton>
+          <Tooltip title="logout">
+            <IconButton color="primary" component="label" onClick={logout}>
+              <IoMdLogOut />
+            </IconButton>
+          </Tooltip>
         </div>
         <div className="text-center">
           <p className="text-secondary text-[0.82em] md:mt-0 mt-8">

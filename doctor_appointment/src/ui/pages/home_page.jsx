@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@mui/material";
+import { IconButton, TextField, Tooltip } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -51,9 +51,11 @@ function HomePage() {
               />
             </LocalizationProvider>
           </div>
-          <IconButton color="primary" component="label" onClick={logout}>
-            <IoMdLogOut />
-          </IconButton>
+          <Tooltip title="logout">
+            <IconButton color="primary" component="label" onClick={logout}>
+              <IoMdLogOut />
+            </IconButton>
+          </Tooltip>
         </div>
         <DataGrid
           rows={appointments}
